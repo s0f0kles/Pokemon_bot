@@ -14,7 +14,10 @@ class Pokemon:
         self.height = self.get_height()
         self.weight = self.get_weight()
         self.abilities = self.get_abilities()
+<<<<<<< HEAD
         self.hunger = 100 #uroven goloda (primer dali 20 edibnic edi to on 100-20=80, umenšil tekušij uroven goloda)
+=======
+>>>>>>> bfcb381bda48d0f74a75d96d835ab6f52c95c7d7
 
         Pokemon.pokemons[pokemon_trainer] = self
 
@@ -49,11 +52,14 @@ class Pokemon:
                 return data['weight']
             else:
                 return "Unknown"
+<<<<<<< HEAD
     
     def feed(self, food_amount):
         self.hunger = max(0, self.hunger - food_amount)#ctobi uroven goloda ne stanavilse niže urovna 0
         return f"{self.name} был накормлен на {food_amount} ед.!"
 
+=======
+>>>>>>> bfcb381bda48d0f74a75d96d835ab6f52c95c7d7
 
     def get_abilities(self):
         url = f'https://pokeapi.co/api/v2/pokemon/{self.pokemon_number}'

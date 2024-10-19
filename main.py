@@ -3,9 +3,13 @@ from config import token
 
 from logic import Pokemon
 
+<<<<<<< HEAD
 bot = telebot.TeleBot(token)
 
 feeding_states = {}
+=======
+bot = telebot.TeleBot(token) 
+>>>>>>> bfcb381bda48d0f74a75d96d835ab6f52c95c7d7
 
 @bot.message_handler(commands=['go'])
 def go(message):
@@ -16,6 +20,7 @@ def go(message):
     else:
         bot.reply_to(message, "Ты уже создал себе покемона")
 
+<<<<<<< HEAD
 @bot.message_handler(commands=['feed'])
 def feed_pokemon_start(message):
     if message.from_user.username in Pokemon.pokemons.keys():
@@ -36,3 +41,8 @@ def process_feed_amount(message):
         bot.send_message(message.chat.id, "Пожалуйста, введи корректное число.")
 
 bot.infinity_polling(none_stop=True)
+=======
+
+bot.infinity_polling(none_stop=True)
+
+>>>>>>> bfcb381bda48d0f74a75d96d835ab6f52c95c7d7
