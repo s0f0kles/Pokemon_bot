@@ -1,26 +1,31 @@
 import telebot 
 from config import token
+from random import randint
 
-from logic import Pokemon
+from logic import Pokemon, Wizard, Fighter
 
-<<<<<<< HEAD
+
 bot = telebot.TeleBot(token)
 
 feeding_states = {}
-=======
+
 bot = telebot.TeleBot(token) 
->>>>>>> bfcb381bda48d0f74a75d96d835ab6f52c95c7d7
 
 @bot.message_handler(commands=['go'])
-def go(message):
+def start(message):
     if message.from_user.username not in Pokemon.pokemons.keys():
-        pokemon = Pokemon(message.from_user.username)
+        chance = randint(1,3)
+        if chance == 1:
+            pokemon = Pokemon(message.from_user.username)
+        elif chance == 2:
+            pokemon = Wizard(message.from_user.username)
+        elif chance == 3:
+            pokemon = Fighter(message.from_user.username)
         bot.send_message(message.chat.id, pokemon.info())
-        bot.send_photo(message.chat.id, pokemon.img)
+        bot.send_photo(message.chat.id, pokemon.show_img())
     else:
-        bot.reply_to(message, "Ты уже создал себе покемона")
+        bot.reply_to(message, "You have already created your own Pokemon")
 
-<<<<<<< HEAD
 @bot.message_handler(commands=['feed'])
 def feed_pokemon_start(message):
     if message.from_user.username in Pokemon.pokemons.keys():
@@ -40,9 +45,18 @@ def process_feed_amount(message):
     except ValueError:
         bot.send_message(message.chat.id, "Пожалуйста, введи корректное число.")
 
-bot.infinity_polling(none_stop=True)
-=======
+@bot.message_handler(commands=['attack'])
+def attack_pok(message):
+    if message.reply_to_message:
+        if message.reply_to_message.from_user.username in Pokemon.pokemons.keys() and message.from_user.username in Pokemon.pokemons.keys():
+            enemy = Pokemon.pokemons[message.reply_to_message.from_user.username]
+            pok = Pokemon.pokemons[message.from_user.username]
+            res = pok.attack(enemy)
+            bot.send_message(message.chat.id, res)
+        else:
+            bot.send_message(message.chat.id, "You can only fight with Pokemon")
+    else:
+            bot.send_message(message.chat.id, "To attack, you need to respond to messages from the person you want to attack.")
 
 bot.infinity_polling(none_stop=True)
 
->>>>>>> bfcb381bda48d0f74a75d96d835ab6f52c95c7d7
